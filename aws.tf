@@ -169,34 +169,34 @@ data "aws_ami" "latest_hardened_ami" {
   }
 }
 
-# Proxy Server EC2 Instance
+## Proxy Server EC2 Instance
 resource "aws_instance" "proxy" {
-  ami           = data.aws_ami.latest_hardened_ami.id
-  instance_type = "t3.micro"
-  subnet_id     = aws_subnet.public_a.id
-  security_groups = [aws_security_group.ec2_sg.name]
+  ami                  = data.aws_ami.latest_hardened_ami.id
+  instance_type        = "t3.micro"
+  subnet_id            = aws_subnet.public_a.id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]  # Use security group ID
   tags = {
     Name = "proxy-server"
   }
 }
 
-# EC2 Instance for App Server A
+# App Server A EC2 Instance
 resource "aws_instance" "app_server_a" {
-  ami           = data.aws_ami.latest_hardened_ami.id
-  instance_type = "t3.micro"
-  subnet_id     = aws_subnet.private_a.id
-  security_groups = [aws_security_group.ec2_sg.name]
+  ami                  = data.aws_ami.latest_hardened_ami.id
+  instance_type        = "t3.micro"
+  subnet_id            = aws_subnet.private_a.id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]  # Use security group ID
   tags = {
     Name = "app-server-a"
   }
 }
 
-# EC2 Instance for App Server B
+# App Server B EC2 Instance
 resource "aws_instance" "app_server_b" {
-  ami           = data.aws_ami.latest_hardened_ami.id
-  instance_type = "t3.micro"
-  subnet_id     = aws_subnet.private_b.id
-  security_groups = [aws_security_group.ec2_sg.name]
+  ami                  = data.aws_ami.latest_hardened_ami.id
+  instance_type        = "t3.micro"
+  subnet_id            = aws_subnet.private_b.id
+  vpc_security_group_ids = [aws_security_group.ec2_sg.id]  # Use security group ID
   tags = {
     Name = "app-server-b"
   }
